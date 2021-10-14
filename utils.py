@@ -50,7 +50,7 @@ def relax(xywh: "np.array([x, y, w, h])") -> np.array:
     Increases bbox area
     :param c: relaxaction coefficient, must be between 1 and 2
     """
-    relaxationValue = xywh[:, [2, 3]].min()
+    relaxationValue = xywh[:, [2, 3]].min() / 2
     xywh[:, 2] = xywh[:, 2] + relaxationValue
     xywh[:, 3] = xywh[:, 3] + relaxationValue
     return xywh
@@ -66,5 +66,4 @@ def cropLarge(img: "np.array", size: int) -> np.array:
     
     for hor in range (0, size*wstride, size):
         for ver in range(0, size*hstride, size):
-            print(hor, ver)
             yield img[ver:ver+size, hor:hor+size, :]
